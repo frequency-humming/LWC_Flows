@@ -1,0 +1,28 @@
+<template>
+    <lightning-card>
+        <lightning-layout multiple-rows=true horizontal-align="center">
+            <lightning-layout-item size="6" padding="around-small">
+                <lightning-input label="Search Account by Name" onchange={handleSearch} name="search"></lightning-input>
+                <template if:true={results}> 
+                    <br/>                       
+                    <template for:each={results} for:item="result">    
+                        <div class="slds-box" key={result.Id}>                
+                            <lightning-record-view-form
+                                record-id={result.Id}
+                                object-api-name="Account">
+                                <lightning-output-field field-name="Name"></lightning-output-field>
+                                <lightning-output-field field-name="AnnualRevenue"></lightning-output-field>
+                                <lightning-output-field field-name="Type"></lightning-output-field>
+                                <lightning-output-field field-name="Industry"></lightning-output-field>
+                                <lightning-button onclick={handleClick} value={result.Id} label="Choose Account"></lightning-button>
+                            </lightning-record-view-form>
+                        </div> 
+                    </template>
+                </template>
+                <template if:true={error}>
+                    {results.error}
+                </template>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>
